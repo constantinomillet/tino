@@ -1,0 +1,171 @@
+import sys
+import json
+global empleados
+
+#empleados = [['1', 'Guadalupe', 22, 65, 1.7, '1','0','0','0','0','1'],
+             #['2', 'Ramona', 22, 83, 1.5, '0','0','0','0','0','0'],
+            # ['3', 'Rodrigo', 22, 80, 1.9, '0','0','1','0','0','1']]
+empleados = []
+
+nombre_archivo_leer = "empleados.txt"
+guardar_archivo(nombre_archivo_guardar)
+ 
+def guardar_archivo(nombre):
+  with open(nombre, "w") as archivo:
+ 
+    for empleado in empleados:
+      texto = ",".join(empleado)
+      archivo.write(texto + "\n")
+guardar_archivo(nombre_archivo_guardar)
+
+def leer_archivo(nombre):
+  with open(nombre, "r") as archivo:
+    contenido = archivo.readlines()
+ 
+    for elemento in contenido:
+      linea = elemento.split(", ")
+      empleados.append(linea)
+ 
+    return empleados
+empleados = leer_archivo(nombre_archivo_leer)
+ 
+nombre_archivo_guardar = "empleados.txt"
+ 
+
+clas_imc = []
+
+
+
+
+
+def menu():
+    print("Sistema de Salud y Bienestar del Empleado \n1. Alta del emplemeado \n2. Calcular imc de empleados \n3. Cambia informacion del empleado \n4. Consulta un empleado \n5. Reporte de todos los empleados \n6. Reporte de empleados por departamento \n7. Salir")
+
+
+
+
+
+def reporte_empleados():
+
+      for e in empleados:
+        
+        #print("\n" f'{"ID":<15} {"NOMBRE":<8} {"PESO":<5} {"ESTATURA":<15} {"DIABETES":<15} {"HIPERTENSION":<5} {"CORAZON":<5} {"CANCER":<5} {"TABAQUISMO":<5} {"VACUNA":<5} {"DEPARTAMENTO":<5}')
+       
+       
+        print(
+              f"{str(e['id']):<25} {e['nombre']:<25} {e['peso']:<15} {e['estatura']:<25} {e['diabetes']:<10} {e['hipertension']:<10} {e['corazon']:<10} {e['cancer']:<10} {e['tabaquismo']:<10} {e['vacuna']:<10} {e['depto']:<10}")
+
+
+def consulta_empleado(id):
+
+      for e in empleados:
+        if(e['id'] == int(id)):
+          
+          print(
+               f"{str(e['id']):<25} {e['nombre']:<25} {e['peso']:<15} {e['estatura']:<25} {e['diabetes']:<10} {e['hipertension']:<10} {e['corazon']:<10} {e['cancer']:<10} {e['tabaquismo']:<10} {e['vacuna']:<10} {e['depto']:<10}")
+
+        else:
+            print("No encontrado")
+
+
+def modifica_empleado(id):
+    e = empleados.pop(empleados.index(id))
+    a = int(input("Teclea el id del empleado: "))
+    b = (input("Teclea el nombre del empleado: "))
+    c = int(input("Teclea la edad del empleado: "))
+    d = int(input("Teclea el peso del empleado: "))
+    e = float(input("Teclea la estatura del empleado: "))
+    f = int(input("Diabetes 1-SI 0-NO?: "))
+    g = int(input("Hipertension 1-SI 0-NO?: "))
+    h = int(input("Enfermedad en el corazon 1-SI 0-NO?: "))
+    i = int(input("Cancer 1-SI 0-NO?: "))
+    j = int(input("Tabaquismo 1-SI 0-NO?: "))
+    k = int(input("Vacuna Covid-19 1-SI 0-NO?: "))
+    l = int(input("Teclea el numero de departamento: "))
+
+    empleados.remove(e)
+    datos_empleado = {'id': a, 'nombre': b, 'edad': c, 'peso': d, 'estatura': e, 'diabetes': f,
+                      'hipertension': g, 'corazon': h, 'cancer': i, 'tabaquismo': j, 'vacuna': k, 'depto': l}
+    empleados.append(datos_empleado)
+
+
+def alta_empleado():
+  a = int(input("Teclea el id del empleado: "))
+  b = (input("Teclea el nombre del empleado: "))
+  c = int(input("Teclea la edad del empleado: "))
+  d = int(input("Teclea el peso del empleado: "))
+  e = float(input("Teclea la estatura del empleado: "))
+  f = int(input("Diabetes 1-SI 0-NO?: "))
+  g = int(input("Hipertension 1-SI 0-NO?: "))
+  h = int(input("Enfermedad en el corazon 1-SI 0-NO?: "))
+  i = int(input("Cancer 1-SI 0-NO?: "))
+  j = int(input("Tabaquismo 1-SI 0-NO?: "))
+  k = int(input("Vacuna Covid-19 1-SI 0-NO?: "))
+  l = int(input("Teclea el numero de departamento: "))
+
+  datos_empleado = {'id': a, 'nombre': b, 'edad': c, 'peso': d, 'estatura': e, 'diabetes': f,
+                    'hipertension': g, 'corazon': h, 'cancer': i, 'tabaquismo': j, 'vacuna': k, 'depto': l}
+  empleados.append(datos_empleado)
+  print(datos_empleado)
+
+
+
+  
+
+def calcular_imc():
+ 
+  contador_bajo = 0
+  contador_nor = 0
+  contador_s = 0
+  contador_ob = 0 
+  
+  for num in range (len(empleados)):
+    imc = float(empleados[num][3]) / (float(empleados[num][4]) * float(empleados[num][4]))
+    imc_empleados.append(imc)
+    if imc < 18.5:
+      imc_cla = "bajo peso"
+      contador_bajo = contador_bajo + 1
+    elif imc >= 18.5 and imc < 25:
+      imc_cla = "Normal"
+      contador_nor = contador_nor + 1
+    elif imc >= 25 and imc < 30:
+      imc_cla = "Sobre peso"
+      contador_s = contador_s + 1
+    elif imc >= 30:
+      imc_cla = "Obesidad"
+      contador_ob = contador_ob + 1
+  print(imc)
+  print(imc_cla)
+
+  
+
+  
+def main():
+  while True:
+
+    num = input("Ingresa la opcion: ")
+    if num == "1":
+      alta_empleado()
+    elif num == "2":
+      calcular_imc()
+    elif num == "3":
+      print("Cambia informacion del empleado")
+      modifica_empleado(id)
+    elif num == "4":
+      print("Consulta un empleado")
+      id = input("Proporciona el id de empleado")
+      print(f'{"ID":<25}{"Nombre":<25}{"Peso":<15}{"Estatura":<25}{"Diabetes":<10}{"Hipertension":<10}{"Corazon":<10}{"Cancer":<10}{"Tabaquismo":<10}{"Vacuna":<10}{"Departamento":<10}')
+
+      consulta_empleado(id)
+    elif num == "5":
+      print(f'{"ID":<25}{"Nombre":<25}{"Peso":<15}{"Estatura":<25}{"Diabetes":<10}{"Hipertension":<10}{"Corazon":<15}{"Cancer":<15}{"Tabaquismo":<10}{"Vacuna":<15}{"Departamento":<10}')
+
+      reporte_empleados()
+    elif num == "6":
+      break
+    else:
+      print("Opcion incorrecta")
+
+
+menu()
+main()
